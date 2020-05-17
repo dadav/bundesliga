@@ -6,12 +6,14 @@ from joblib import load
 
 
 result_dict = load('result_dict')
-teams = load('team')
+teams = load('team_encoder')
 model = load('model.sklearn')
 
 st.title('Bundesliga Orakel')
 
 st.write('Diese App sagt Bundesliga-Ergebnisse voraus!')
+st.write('Es handelt sich hierbei um eine KI (Künstliche Intelligenz), die mit sämtlichen [Spielergebnissen](https://www.kaggle.com/thefc17/bundesliga-results-19932018) seit 1993 trainiert wurde.')
+st.write('Der Sourcecode ist [hier](https://github.com/dadav/bundesliga) zu finden!')
 
 heimteam = st.selectbox(
     'Heimteam',
