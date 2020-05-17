@@ -39,12 +39,16 @@ if st.button('Vorhersagen...'):
             htr = 3
 
         input_data = np.array([heim, anderes, hthg, htag, htr])
-        res = model.predict([input_data])[0]
-        if res == 1:
-            gewinner = 'Unentschieden'
-        elif res == 2:
-            gewinner = heimteam
-        else:
-            gewinner = anderesteam
+        u_win, h_win, a_win = model.predict_proba([input_data])[0]
+        res = {
+            'Unentschieden': u_win,
+            heimteam: h_win,
+            anderesteam: a_win,
+        }
+
+        for k, v in res.items():
+            st.write(f'{k}: {v * 100:.2f}%')
+
+        gewinner = max(res, key=res.get)
 
         st.write('Gewinner: ' + gewinner)
