@@ -27,20 +27,24 @@ halbzeitstand = st.text_input('Halbzeitstand:', '0:0')
 if st.button('Vorhersagen...'):
     heim = teams.transform([heimteam])
     anderes = teams.transform([anderesteam])
-    hthg, htag = map(int, halbzeitstand.split(':'))
-    htr = 1
-    if hthg > htag:
-        htr = 2
-    elif hthg < htag:
-        htr = 3
 
-    input_data = np.array([heim, anderes, hthg, htag, htr])
-    res = model.predict([input_data])[0]
-    if res == 1:
-        gewinner = 'Unentschieden'
-    elif res == 2:
-        gewinner = heimteam
+    if heim == anderes:
+        st.write('Bitte unterschiedliche Teams wählen!')
     else:
-        gewinner = anderesteam
+        hthg, htag = map(int, halbzeitstand.split(':'))
+        htr = 1
+        if hthg > htag:
+            htr = 2
+        elif hthg < htag:
+            htr = 3
 
-    st.write('Gewinner: ' + gewinner)
+        input_data = np.array([heim, anderes, hthg, htag, htr])
+        res = model.predict([input_data])[0]
+        if res == 1:
+            gewinner = 'Unentschieden'
+        elif res == 2:
+            gewinner = heimteam
+        else:
+            gewinner = anderesteam
+
+        st.write('Gewinner: ' + gewinner)
