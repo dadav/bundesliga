@@ -25,8 +25,8 @@ anderesteam = st.selectbox(
 halbzeitstand = st.text_input('Halbzeitstand:', '0:0')
 
 if st.button('Vorhersagen...'):
-    heim = teams.transform([heimteam])
-    anderes = teams.transform([anderesteam])
+    heim = teams.transform([heimteam])[0]
+    anderes = teams.transform([anderesteam])[0]
 
     if heim == anderes:
         st.write('Bitte unterschiedliche Teams wählen!')
@@ -38,7 +38,7 @@ if st.button('Vorhersagen...'):
         elif hthg < htag:
             htr = 3
 
-        input_data = np.array([heim, anderes, hthg, htag, htr])
+        input_data = np.array([heim, anderes, hthg, htag])
         u_win, h_win, a_win = model.predict_proba([input_data])[0]
         res = {
             'Unentschieden': u_win,
